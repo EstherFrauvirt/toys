@@ -2,7 +2,7 @@ const { query } = require("express");
 const { Toy } = require("../models/Toy.model");
 
 exports.getToys = async (req, res, next) =>{
-    const perPage=1;
+    const perPage=10;
     const {page}=req.query;
     const skip=(page-1)*perPage;
     console.log(req.query);
@@ -13,7 +13,7 @@ exports.getToys = async (req, res, next) =>{
 
 exports.getToysByName = async (req, res, next) =>{
     const {s,page} = req.query;
-    const perPage=1;
+    const perPage=10;
     const skip=(page-1)*perPage;
     const toys = await Toy.find({ $or: [{ name: s }, { info: s }] }).skip(skip).limit(perPage);
     console.log(toys);
@@ -23,7 +23,7 @@ exports.getToysByName = async (req, res, next) =>{
 exports.getToysByCat = async (req, res, next) =>{
     const {catname} = req.params;
     const {page} = req.query;
-    const perPage=1;
+    const perPage=10;
     const skip=(page-1)*perPage;
     const toys = await Toy.find({category : catname}).skip(skip).limit(perPage);
     res.send(toys);
